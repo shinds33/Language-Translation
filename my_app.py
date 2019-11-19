@@ -10,7 +10,7 @@ wordInput = input('Enter a phrase you want to translate: ')
 # Process input language
 def process_input(user_in):
     user_in.strip()
-    if user_in == "English" or user_in == "english":
+    if user_in == 'English' or user_in == 'english':
         user_in = 'en'
         return user_in
     if user_in == 'Spanish' or user_in == 'spanish':
@@ -34,7 +34,7 @@ langInput = process_input(langInput)
 # Process output language
 def process_output(user_out):
     user_out.strip()
-    if user_out == "English" or user_out == "english":
+    if user_out == 'English' or user_out == 'english':
         user_out = 'en'
         return user_out
     if user_out == 'Spanish' or user_out == 'spanish':
@@ -55,9 +55,8 @@ def process_output(user_out):
 transInput = input('Enter the language to translate to: ')
 transInput = process_output(transInput)
 
-
 # Setting up call parameters
-params = dict(key=API_KEY, text=wordInput, lang=langInput+'-'+transInput)
+params = dict(key=API_KEY, text=wordInput, lang=langInput + '-' + transInput)
 
 # Retrieving response
 pageResponse = requests.get(url, params=params)
