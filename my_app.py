@@ -1,9 +1,9 @@
+# Sam Hinds 2019
+# Language translate API
+
 import requests
 API_KEY = 'trnsl.1.1.20191112T215743Z.477a420465e8c67b.7999c06a217a0d6aa13d11c2c65535b6683da6d9'
 url = 'https://translate.yandex.net/api/v1.5/tr.json/translate'
-
-# Get phrase to translate
-wordInput = input('Enter a phrase you want to translate: ')
 
 # Define valid language options
 langDict = {'Azerbaijan': 'az', 'Albanian': 'sq', 'Amharic': 'am', 'English': 'en', 'Arabic': 'ar',
@@ -16,10 +16,12 @@ langDict = {'Azerbaijan': 'az', 'Albanian': 'sq', 'Amharic': 'am', 'English': 'e
         'French': 'fr', 'Croatian': 'hr', 'Czech': 'cs', 'Swedish': 'sv', 'Estonian': 'et',
         'Japanese': 'ja'}
 
+# Process input phrase
+wordInput = input('Enter a phrase you want to translate: ')
+
 # Process input language
 input_choice = input('Translate from: ')
 input_choice.replace(" ", "")
-
 if input_choice in langDict:
     langInput = langDict.get(input_choice)
 else:
@@ -28,7 +30,6 @@ else:
 # Process output language
 output_choice = input('Translate to: ')
 output_choice.replace(" ", "")
-
 if output_choice in langDict:
     transInput = langDict.get(output_choice)
 else:
@@ -40,7 +41,7 @@ pageResponse = requests.get(url, params=params)
 
 # Checking if the page is working
 if pageResponse:
-    print('Your phrase translated from ' + input_choice + ' to ' + output_choice + ' is: ')
+    print('Your phrase translated from ' + input_choice + ' to ' + output_choice + ': ')
 else:
     print('There was an issue loading the response')
     if pageResponse.status_code == 403:
@@ -55,9 +56,12 @@ output = open('index.html', 'w')
 output.write(pageResponse.text)
 output.close()
 
-# Displaying JSON object
+# Displaying result
+print('\n')
 json = pageResponse.json()
 print(json['text'][0])
+print('\n')
+
 
 
 
