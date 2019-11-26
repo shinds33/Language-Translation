@@ -1,69 +1,46 @@
 import requests
-
 API_KEY = 'trnsl.1.1.20191112T215743Z.477a420465e8c67b.7999c06a217a0d6aa13d11c2c65535b6683da6d9'
 url = 'https://translate.yandex.net/api/v1.5/tr.json/translate'
 
-
-# Get word/phrase and languages to translate from and to
+# Get phrase to translate
 wordInput = input('Enter a phrase you want to translate: ')
 
+# Define valid language options
+langDict = {'Azerbaijan': 'az', 'Albanian': 'sq', 'Amharic': 'am', 'English': 'en', 'Arabic': 'ar',
+        'Armenian': 'hy', 'Afrikaans': 'af', 'Basque': 'eu', 'Burmese': 'my', 'Hungarian': 'hu',
+        'Vietnamese': 'vi', 'Greek': 'el', 'Georgian': 'ka', 'Hebrew': 'he', 'Indonesian': 'id',
+        'Irish': 'ga', 'Italian': 'it', 'Icelandic': 'is', 'Spanish': 'es', 'Chinese': 'zh',
+        'Korean': 'ko', 'Latin': 'la', 'Latvian': 'lv', 'Mongolian': 'mn', 'German': 'de',
+        'Norwegian': 'no', 'Punjabi': 'pa', 'Polish': 'pl', 'Portuguese': 'pt',
+        'Russian': 'ru', 'Serbian': 'sr', 'Swahili': 'sw', 'Thai': 'th', 'Ukrainian': 'uk',
+        'French': 'fr', 'Croatian': 'hr', 'Czech': 'cs', 'Swedish': 'sv', 'Estonian': 'et',
+        'Japanese': 'ja'}
+
 # Process input language
-def process_input(user_in):
-    user_in.strip()
-    if user_in == 'English' or user_in == 'english':
-        user_in = 'en'
-        return user_in
-    if user_in == 'Spanish' or user_in == 'spanish':
-        user_in = 'es'
-        return user_in
-    if user_in == 'French' or user_in == 'french':
-        user_in = 'fr'
-        return user_in
-    if user_in == 'Italian' or user_in == 'italian':
-        user_in = 'it'
-        return user_in
-    if user_in == 'German' or user_in == 'german':
-        user_in = 'de'
-        return user_in
-    if user_in == 'Arabic' or user_in == 'arabic':
-        user_in = 'ar'
-        return user_in
-langInput = input('Enter the base language: ')
-langInput = process_input(langInput)
+input_choice = input('Translate from: ')
+input_choice.replace(" ", "")
+
+if input_choice in langDict:
+    langInput = langDict.get(input_choice)
+else:
+    print('Input language not supported. Please refer to the list of supported languages and try again')
 
 # Process output language
-def process_output(user_out):
-    user_out.strip()
-    if user_out == 'English' or user_out == 'english':
-        user_out = 'en'
-        return user_out
-    if user_out == 'Spanish' or user_out == 'spanish':
-        user_out = 'es'
-        return user_out
-    if user_out == 'French' or user_out == 'french':
-        user_out = 'fr'
-        return user_out
-    if user_out == 'Italian' or user_out ==  'italian':
-        user_out = 'it'
-        return user_out
-    if user_out == 'German' or user_out ==  'german':
-        user_out = 'de'
-        return user_out
-    if user_out == 'Arabic' or user_out ==  'arabic':
-        user_out = 'ar'
-        return user_out
-transInput = input('Enter the language to translate to: ')
-transInput = process_output(transInput)
+output_choice = input('Translate to: ')
+output_choice.replace(" ", "")
 
-# Setting up call parameters
+if output_choice in langDict:
+    transInput = langDict.get(output_choice)
+else:
+    print('Output language not supported. Please refer to the list of supported languages and try again')
+
+# Setting up call parameters and retrieving response
 params = dict(key=API_KEY, text=wordInput, lang=langInput + '-' + transInput)
-
-# Retrieving response
 pageResponse = requests.get(url, params=params)
 
 # Checking if the page is working
 if pageResponse:
-    print('Your phrase translated from ' + langInput + ' to ' + transInput + ' is: ')
+    print('Your phrase translated from ' + input_choice + ' to ' + output_choice + ' is: ')
 else:
     print('There was an issue loading the response')
     if pageResponse.status_code == 403:
@@ -81,6 +58,13 @@ output.close()
 # Displaying JSON object
 json = pageResponse.json()
 print(json['text'][0])
+
+
+
+
+
+
+
 
 
 
