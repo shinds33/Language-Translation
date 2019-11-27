@@ -17,19 +17,21 @@ langDict = {'Azerbaijan': 'az', 'Albanian': 'sq', 'Amharic': 'am', 'English': 'e
         'Japanese': 'ja'}
 
 # Process input phrase
+print('\n')
 wordInput = input('Enter a phrase you want to translate: ')
+print('\n')
 
 # Process input language
-input_choice = input('Translate from: ')
-input_choice.replace(" ", "")
+raw_input_choice = input('Translate from: ')
+input_choice = raw_input_choice.replace(" ", "")
 if input_choice in langDict:
     langInput = langDict.get(input_choice)
 else:
     print('Input language not supported. Please refer to the list of supported languages and try again')
 
 # Process output language
-output_choice = input('Translate to: ')
-output_choice.replace(" ", "")
+raw_output_choice = input('Translate from: ')
+output_choice = raw_output_choice.replace(" ", "")
 if output_choice in langDict:
     transInput = langDict.get(output_choice)
 else:
@@ -41,6 +43,7 @@ pageResponse = requests.get(url, params=params)
 
 # Checking if the page is working
 if pageResponse:
+    print('\n')
     print('Your phrase translated from ' + input_choice + ' to ' + output_choice + ': ')
 else:
     print('There was an issue loading the response')
@@ -57,18 +60,9 @@ output.write(pageResponse.text)
 output.close()
 
 # Displaying result
-print('\n')
 json = pageResponse.json()
 print(json['text'][0])
 print('\n')
-
-
-
-
-
-
-
-
 
 
 
