@@ -30,7 +30,7 @@ else:
     print('Input language not supported. Please refer to the list of supported languages and try again')
 
 # Process output language
-raw_output_choice = input('Translate from: ')
+raw_output_choice = input('Translate to: ')
 output_choice = raw_output_choice.replace(" ", "")
 if output_choice in langDict:
     transInput = langDict.get(output_choice)
