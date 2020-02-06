@@ -24,6 +24,7 @@ print('\n')
 # Process input language
 raw_input_choice = input('Translate from: ')
 input_choice = raw_input_choice.replace(" ", "")
+input_choice = input_choice.capitalize()
 if input_choice in langDict:
     langInput = langDict.get(input_choice)
 else:
@@ -32,6 +33,7 @@ else:
 # Process output language
 raw_output_choice = input('Translate to: ')
 output_choice = raw_output_choice.replace(" ", "")
+output_choice = output_choice.capitalize()
 if output_choice in langDict:
     transInput = langDict.get(output_choice)
 else:
