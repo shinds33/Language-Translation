@@ -25,10 +25,12 @@ print('\n')
 raw_input_choice = input('Translate from: ')
 input_choice = raw_input_choice.replace(" ", "")
 input_choice = input_choice.capitalize()
+
 if input_choice in langDict:
     langInput = langDict.get(input_choice)
 else:
     print('Input language not supported. Please refer to the list of supported languages and try again')
+    exit(0)
 
 # Process output language
 raw_output_choice = input('Translate to: ')
@@ -38,6 +40,7 @@ if output_choice in langDict:
     transInput = langDict.get(output_choice)
 else:
     print('Output language not supported. Please refer to the list of supported languages and try again')
+    exit(0)
 
 # Setting up call parameters and retrieving response
 params = dict(key=API_KEY, text=wordInput, lang=langInput + '-' + transInput)
@@ -65,10 +68,4 @@ output.close()
 json = pageResponse.json()
 print(json['text'][0])
 print('\n')
-
-
-
-
-
-
 
